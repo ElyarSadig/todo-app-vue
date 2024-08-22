@@ -18,7 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
       throw error;
     }
   }
-  async function register(context, data) {
+  async function register(data) {
     try {
       const response = await axios.post("/register", {
         name: data.name,
