@@ -55,9 +55,11 @@ export const useAuthStore = defineStore("auth", () => {
       const accessToken = response.data.access_token;
       localStorage.setItem("access_token", accessToken);
       token.value = accessToken;
+      return response;
     } catch (error) {
-      console.error(error);
-      throw error;
+      const errorMessage =
+        error.response?.data?.message || "An error occurred during login.";
+      throw new Error(errorMessage);
     }
   }
 
