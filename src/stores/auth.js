@@ -27,8 +27,18 @@ export const useAuthStore = defineStore("auth", () => {
       });
       return response;
     } catch (error) {
-      console.error(error);
-      throw error;
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        const serverMessage = error.response.data.message;
+        console.error("Server Error:", serverMessage);
+        throw new Error(serverMessage);
+      } else {
+        console.error("Network or unexpected error:", error);
+        throw new Error("An unexpected error occurred. Please try again.");
+      }
     }
   }
   async function destroyToken() {

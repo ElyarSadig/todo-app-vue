@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "@/components/marketing/LandingPage.vue";
 import AboutPage from "@/components/marketing/AboutPage.vue";
+import LoginPage from "@/components/auth/LoginPage.vue";
+import RegisterPage from "@/components/auth/RegisterPage.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +28,7 @@ const router = createRouter({
       path: "/login",
       name: "login",
       props: true,
+      component: LoginPage,
       meta: {
         requiresVisitor: true,
       },
@@ -33,7 +36,7 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      // component: Register,
+      component: RegisterPage,
       meta: {
         requiresVisitor: true,
       },
