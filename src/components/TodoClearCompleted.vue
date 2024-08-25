@@ -1,13 +1,10 @@
 <script setup>
 import { useTodoStore } from "@/stores/todo";
-import { computed } from "vue";
 
 const store = useTodoStore();
-const showClearCompletedButton = computed(() => {
-  return store.showClearCompletedButton;
-});
-const clearCompleted = () => {
-  store.clearCompleted();
+const showClearCompletedButton = store.showClearCompletedButton;
+const clearCompleted = async () => {
+  await store.clearCompleted();
 };
 </script>
 
