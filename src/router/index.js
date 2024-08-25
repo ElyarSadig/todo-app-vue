@@ -3,6 +3,8 @@ import LandingPage from "@/components/marketing/LandingPage.vue";
 import AboutPage from "@/components/marketing/AboutPage.vue";
 import LoginPage from "@/components/auth/LoginPage.vue";
 import RegisterPage from "@/components/auth/RegisterPage.vue";
+import LogoutPage from "@/components/auth/LogoutPage.vue";
+LogoutPage
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,7 +46,7 @@ const router = createRouter({
     {
       path: "/logout",
       name: "logout",
-      // component: Logout,
+      component: LogoutPage,
     },
   ],
 });
