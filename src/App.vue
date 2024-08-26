@@ -21,14 +21,17 @@ const loggedIn = store.loggedIn;
         <router-link :to="{ name: 'logout' }">Logout</router-link>
       </li>
     </ul>
-    <transition
-      name="router-animation"
-      enter-active-class="animated fadeIn"
-      leave-active-class="animated fadeOut"
-      mode="out-in"
-    >
-      <router-view></router-view>
-    </transition>
+
+    <router-view v-slot="{ Component }">
+      <transition
+        name="router-animation"
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
+        mode="out-in"
+      >
+        <component :is="Component"></component>
+      </transition>
+    </router-view>
   </div>
 </template>
 
