@@ -4,6 +4,7 @@ import AboutPage from "@/components/marketing/AboutPage.vue";
 import LoginPage from "@/components/auth/LoginPage.vue";
 import RegisterPage from "@/components/auth/RegisterPage.vue";
 import LogoutPage from "@/components/auth/LogoutPage.vue";
+import TodoListPage from "@/components/layouts/TodoListPage.vue";
 LogoutPage
 
 const router = createRouter({
@@ -22,6 +23,7 @@ const router = createRouter({
     {
       path: "/todo",
       name: "todo",
+      component: TodoListPage,
       meta: {
         requiresAuth: true,
       },
