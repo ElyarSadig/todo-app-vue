@@ -1,7 +1,7 @@
-import axios from "axios";
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-import { useAuthStore } from "./auth.js";
+import { useAuthStore } from "./auth";
+import axios from "@/utils/axios";
 
 export const useTodoStore = defineStore("todo", () => {
   const filter = ref("all");
@@ -10,19 +10,22 @@ export const useTodoStore = defineStore("todo", () => {
   const remaining = computed(() => {
     return todos.value.filter((todo) => !todo.completed).length;
   });
+
   const anyRemaining = computed(() => {
-    return remaining.value != 0;
+    return remaining.value !== 0;
   });
+
   const todosFiltered = computed(() => {
-    if (filter.value == "all") {
+    if (filter.value === "all") {
       return todos;
-    } else if (filter.value == "active") {
+    } else if (filter.value === "active") {
       return todos.value.filter((todo) => !todo.completed);
-    } else if (filter.value == "completed") {
+    } else if (filter.value === "completed") {
       return todos.value.filter((todo) => todo.completed);
     }
     return todos;
   });
+
   const showClearCompletedButton = computed(() => {
     return todos.value.filter((todo) => todo.completed).length > 0;
   });
@@ -44,9 +47,11 @@ export const useTodoStore = defineStore("todo", () => {
       throw error;
     }
   }
+
   async function clearTodos() {
     todos.value = [];
   }
+
   async function retrieveTodos() {
     const authStore = useAuthStore();
     axios.defaults.headers.common["Authorization"] =
@@ -59,6 +64,7 @@ export const useTodoStore = defineStore("todo", () => {
       console.error(error);
     }
   }
+
   async function updateTodo(todo) {
     try {
       await axios.patch("/todos/" + todo.id, {
@@ -76,6 +82,7 @@ export const useTodoStore = defineStore("todo", () => {
       console.log(error);
     }
   }
+
   async function deleteTodo(id) {
     try {
       await axios.delete("/todos/" + id);
@@ -85,6 +92,7 @@ export const useTodoStore = defineStore("todo", () => {
       console.log(error);
     }
   }
+
   async function checkAll(checked) {
     try {
       await axios.patch("/todos-check-all", {
@@ -95,15 +103,17 @@ export const useTodoStore = defineStore("todo", () => {
       console.error(error);
     }
   }
+
   async function updateFilter(filter) {
     filter.value = filter;
   }
+
   async function clearCompleted() {
     const completed = todos.value
       .filter((todo) => todo.completed)
       .map((todo) => todo.id);
     try {
-      axios.delete("todos-delete-completed", {
+      await axios.delete("todos-delete-completed", {
         data: {
           todos: completed,
         },

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import axios from "@/utils/axios";
 
 export const useAuthStore = defineStore("auth", () => {
   const token = ref(localStorage.getItem("access_token") || null);
@@ -18,6 +18,7 @@ export const useAuthStore = defineStore("auth", () => {
       throw error;
     }
   }
+
   async function register(data) {
     try {
       const response = await axios.post("/register", {
@@ -41,6 +42,7 @@ export const useAuthStore = defineStore("auth", () => {
       }
     }
   }
+
   async function destroyToken() {
     axios.defaults.headers.common["Authorization"] = "Bearer " + token.value;
 
@@ -56,6 +58,7 @@ export const useAuthStore = defineStore("auth", () => {
       }
     }
   }
+
   async function retrieveToken(data) {
     try {
       const response = await axios.post("/login", {
